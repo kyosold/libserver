@@ -1,0 +1,21 @@
+======================================================
+Libserver - Simple Network Server Code over Memcache
+======================================================
+
+Features
+=========
+* support custome protocol
+* very simple
+* use memcache cache
+* keep memcached protocol
+
+Getting Started
+================
+
+Download
+---------
+See: <http://code.google.com/p/my-libserver/downloads/list>
+
+Installation
+-------------
+See: <>
