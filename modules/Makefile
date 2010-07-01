@@ -1,8 +1,7 @@
 CC		=	gcc
-#CFLAGS	=	-g -std=gnu99 -DHAVE_CONFIG_H -O -fpic -shared
 CFLAGS	=	-g -std=gnu99 -DHAVE_CONFIG_H -c
-INCS	=	-I../ -I../confparser/
-LDS		=	-L../ -L../confparser/ -lserver -lconfparser
+INCS	=	#-I../ -I../confparser/
+LDS		=	#-L../ -L../confparser/ #-lserver -lconfparser
 
 OBJ		=	mod.o
 

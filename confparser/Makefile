@@ -48,7 +48,8 @@ libconfparser.so:	$(OBJS)
 	@$(SHLD) $(LDSHFLAGS) -o $@.0 $(OBJS) $(LDFLAGS) \
 		-Wl,-soname=`basename $@`.0
 	ln -s $@.0 $@
-	cp libconfparser.so.0 /usr/local/lib/
+	#cp libconfparser.so.0 /usr/local/lib/
+	#cp libconfparser.so /usr/local/lib/
 
 clean:
 	$(RM) $(OBJS)

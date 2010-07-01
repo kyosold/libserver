@@ -17,7 +17,6 @@
 #include <netdb.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <dlfcn.h>
 
 #include "protocol_binary.h"
 #include "cache.h"
@@ -249,7 +248,6 @@ struct stats {
 
 #define MAX_VERBOSITY_LEVEL 2
 
-
 /* When adding a setting, be sure to update process_stat_settings */
 /**
  * Globally accessible settings as derived from the commandline.
@@ -278,7 +276,7 @@ struct settings {
     int item_size_max;        /* Maximum item size, and upper end for slabs */
     bool sasl;              /* SASL on/off */
 
-	bool mod;				/* is custome module */
+	bool mod;				/* is custome module protocol */
 	char *mod_conf;			/* module config file path */
 	char *conn_wel;			/* welcome words when connection succ */
 };
@@ -422,12 +420,8 @@ struct conn {
     conn   *next;     /* Used for generating a list of conn structures */
     LIBEVENT_THREAD *thread; /* Pointer to the thread object serving this connection */
 
-	//void *mod;
-	//void (*mod_init)();
-	//void (*mod_recv)();
-	//char *err_str;
-	void *req_buf;
-	void *res_buf;
+	void *req_buf;	/* save recv info from server */
+	void *res_buf;	/* save send info to server */
 };
 
 
@@ -509,6 +503,7 @@ extern void drop_privileges(void);
 #define likely(x)       __builtin_expect((x),1)
 #define unlikely(x)     __builtin_expect((x),0)
 
+
 enum transmit_result {
 	TRANSMIT_COMPLETE,   //** All done writing. *
 	TRANSMIT_INCOMPLETE, //** More data remaining to write. *
@@ -523,8 +518,8 @@ char *get_cache(conn *c, char *key, size_t nkey);
 int delete_cache(conn *c, char *key, size_t nkey);
 void free_cache(char *val);
 
+extern int mod_init(const char * conf);
+extern int mod_conn_init(conn *c);
+extern void mod_conn_clear(conn *c);
+extern void mod_recv(conn *c, char *buf, size_t buf_len);
 
-///////////////// modules ////////////////////////
-//#include "module_ldap.h"
-
-extern void ldap_recv(conn *c, char *buf, size_t buf_len);

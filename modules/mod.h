@@ -3,7 +3,7 @@
 
 #include "../memcached.h"
 
-extern enum transmit_result out_client(conn *c, const char *str);
+//extern enum transmit_result out_client(conn *c, const char *str);
 
 #endif
 

@@ -54,7 +54,7 @@ static int init_config(void)
 	return (0);
 }
 
-int mod_config(const char * conf)
+int mod_init(const char * conf)
 {
 	set_conf_file(conf);  
 	if (init_config() != 0)
@@ -63,7 +63,7 @@ int mod_config(const char * conf)
 	return (0);
 }
 
-int mod_init(conn *c)
+int mod_conn_init(conn *c)
 {
 	c->req_buf = (struct http_t *)calloc(1, sizeof(struct http_t));
 	if (!c->req_buf) {
@@ -76,7 +76,7 @@ int mod_init(conn *c)
 	return 0;
 }
 
-int mod_clear(conn *c)
+void mod_conn_clear(conn *c)
 {
 	if (c->req_buf) {
 		free(c->req_buf);
